@@ -28,6 +28,13 @@ H = {
   'X-api-key': API_KEY
 }
 
+# Pull all results in multiple batches
+batch = 1
+all_records = []
+start_time = time.time()
+found_all_records = False
+continue_scrolling = True
+
 # Query based on industry and size 
 
 ES_QUERY = {

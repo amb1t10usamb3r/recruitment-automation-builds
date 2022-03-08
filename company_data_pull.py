@@ -94,7 +94,8 @@ else:
 
 #def save_profiles_to_csv(profiles, filename, fields=[], delim=','):
  # # Define header fields
-  ##if fields == [] and len(profiles) > 0:
+  ##if fields == [] and len
+  # (profiles) > 0:
     #  fields = profiles[0].keys()
   # Write csv file
   #with open(filename, 'w') as csvfile:
@@ -115,3 +116,22 @@ else:
 #csv_header_fields = ['company_name']
 #csv_filename = "all_company_profiles.csv"
 #save_profiles_to_csv(all_records, csv_filename, csv_header_fields)
+
+def save_profiles_to_csv(profiles, filename, fields=[], delim=','):
+    # Define header fields
+    if fields == [] and len(profiles) > 0:
+    fields = profiles[0].values()
+
+    # Write CSV file
+    with open(company_data.csv, 'w') as csvfile:
+        writer = csv.DictReader(csvfile, delimiter=",")
+       line_count = 0
+        for row in csv_reader:
+    if line_count == 0:
+            print(f'Column names are {", ".join(row)}')
+            line_count += 1
+            print(f'Processed {line_count} lines.')
+        for profile in profiles:
+            writer.writerow([ profile[field] for field in fields ])
+            count += 1
+            print(f"Wrote {count} lines to: '{company_data.csv}'")

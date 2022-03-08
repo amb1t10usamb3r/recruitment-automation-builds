@@ -5,14 +5,14 @@
 # targeted results to ensure optimal criteria match and faster process
 # For hiring to champion 2021 company growth initiatives.
 
-import requests, json, time, csv, sys
+import reques
+ts, json, time, csv, sys
 csv.field_size_limit(sys.maxsize)
 
 # Your API key 
 API_KEY = "e81a32d92019ad9594192b68db082bb9d3f9b9988f0adb607b5b8bec994ac5e9"
 
 # People Search API for 1000-5000 employees in the internet industry
-
 
 # Limit the number of records to pull to stay within credit limits
 
@@ -102,7 +102,7 @@ if 'scroll_token' in response:
 batch += 1
 ## found_all_records = (len(all_records) == response['total'])
 time.sleep(6) # buffer to avoid exceeding rate limit 
-
+start_time = time.time()
 end_time = time.time()
 runtime = end_time - start_time
     
@@ -110,26 +110,11 @@ print(f"Successfully recovered {len(all_records)} profiles in "
      f"{batch} batches [{round(runtime, 2)} seconds]")
 
 # Save Profiles to CSV (UTIL function)
-def save_profiles_to_csv(profiles, filename, fields=[], delim=','):
 
-    # Define header fields
-    if fields == [] and len(profiles) > 0:
-        fields = profiles[0].keys()
 
-    # Write CSV file
-    with open(filename, 'w') as csvfile:
-        writer = csv.writer(csvfile, delimiter=delim)
-        # Write Header:
-        writer.writerow(fields)
-        # Write Body:
-        count = 0
-        for profile in profiles:
-            writer.writerow([ profile[field] for field in fields ])
-        count += 1
-        print(f"Wrote {count} lines to: '{filename}'")
 
-# Use UTIL function to Save Profiles to CSV    
+# Use UTIL function to Save Candidate Data to CSV    
 csv_header_fields = ['job_company_name', 'full_name', "work_email",
-                    'job_title', 'linkedin_url']
+                    'job_title', 'linkedin_url', 'location_locality'
 csv_filename = "Prospective_SE_Candidates_Q4.csv"
 save_profiles_to_csv(all_records, csv_filename, csv_header_fields)
